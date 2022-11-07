@@ -42,7 +42,13 @@ make check
 make install
 ```
 
-## run
+
+## build soci
+```sh
+make
+```
+
+## run soci
 ```sh
 ./bin/soci
 ```

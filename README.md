@@ -26,9 +26,9 @@ Click terminal and type
 tar -xvf gmp-6.2.0.tar.xz
 ```
 * Installing
-Go to gmp-6.1.2
+Go to gmp-6.2.0
 ```sh
-cd gmp-6.1.2
+cd gmp-6.2.0
 ```
 * config
 ```sh

@@ -39,7 +39,7 @@ cd gmp-6.2.0
 ```sh
 make
 make check
-make install
+sudo make install
 ```
 
 

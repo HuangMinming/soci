@@ -7,30 +7,44 @@ Soci mainly focus on how a cloud server provides secure computation services for
 - CP: CP stores and manages the encrypted data sent from DO, and produces the intermediate results and the final results in an encrypted form. In addition, CP can directly execute certain calculations over encrypted data such as homomorphic addition and homomorphic scalarmultiplication. CP interacts with CSP to perform SMUL,SCMP, SSBA, and SDIV over encrypted data.
 - CSP: CSP only provides online computation services and does not store any encrypted data. Specifically, CSP cooperates with CP to perform secure computations (e.g., multiplication, comparison, division) on encrypted data
 
-## GMP
-GMP is a free library for arbitrary precision arithmetic, operating on signed integers, rational numbers, and floating-point numbers. [https://gmplib.org/](https://gmplib.org/)
 
 ## build Dependencies
 
 * OS: Ubuntu 20.04 LTS.
+* make,g++
+* gmp
+
+# GMP
+GMP is a free library for arbitrary precision arithmetic, operating on signed integers, rational numbers, and floating-point numbers.
 
 
-
-
-## build
+## install gmp
+Download gmp from [GMP](https://ftp.gnu.org/gnu/gmp/) . you can choose “gmp-6.2.0.tar.xz”.
+* Unzip it
+Click terminal and type
 ```sh
-cd gmp-6.2.0
+tar -xvf gmp-6.2.0.tar.xz
+```
+* Installing
+Go to gmp-6.1.2
+```sh
+cd gmp-6.1.2
+```
+* config
+```sh
 ./configure --prefix=/usr --enable-cxx
+```
+
+* make
+```sh
 make
 make check
 make install
-cd ..
-make
 ```
 
 ## run
 ```sh
-./soci
+./bin/soci
 ```
 ## output:
     set x = -99, y = -789

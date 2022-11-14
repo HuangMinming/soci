@@ -9,6 +9,10 @@ using namespace std;
 using namespace phe;
 using namespace soci;
 
+#define KEY_LEN_BIT 512
+#define SIGMA_LEN_BIT 128
+
+
 int main() {
 	/*
 	* start initialize.

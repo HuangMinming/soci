@@ -5,7 +5,7 @@ Soci mainly focus on how a cloud server provides secure computation services for
 # ROLES
 - DO: DO takes charge of generating and distributing keys to CP and CSP securely. Specifically, DO calls the KeyGen algorithm to generate a PaillierTD public/private key pair (pk; sk) and then splits sk into two partially private keys (sk1; sk2). Next, DO distributes (pk; sk1) and (pk; sk2) to CP and CSP, respectively. To protect data privacy, DO encrypts data with pk and outsources encrypted data to CP. Besides, DO outsources computation services over encrypted data to CP and CSP.
 - CP: CP stores and manages the encrypted data sent from DO, and produces the intermediate results and the final results in an encrypted form. In addition, CP can directly execute certain calculations over encrypted data such as homomorphic addition and homomorphic scalarmultiplication. CP interacts with CSP to perform SMUL,SCMP, SSBA, and SDIV over encrypted data.
-- CSP: CSP only provides online computation services and does not store any encrypted data. Specifically, CSP cooperates with CP to perform secure computations (e.g., multiplication, comparison, division) on encrypted data
+- CSP: CSP only provides online computation services and does not store any encrypted data. Specifically, CSP cooperates with CP to perform secure computations (e.g., multiplication, comparison, division) on encrypted data.
 
 
 ## build Dependencies
@@ -26,8 +26,7 @@ Click terminal and type
 ```sh
 tar -xvf gmp-6.2.0.tar.xz
 ```
-* Installing
-Go to gmp-6.2.0
+* Go to gmp-6.2.0
 ```sh
 cd gmp-6.2.0
 ```
@@ -82,14 +81,3 @@ make
 
 # Benchmark
 in src/Main.cpp, you can change the value of KEY_LEN_BIT and SIGMA_LEN_BIT . KEY_LEN_BIT determine the big prime's length in bit, and  SIGMA_LEN_BIT determine sk1's length in bit.
-
-# Interface function description
-
-## Paillier
-| Function Name | Description | Input | Output |
-| ------ | ------ | ------ | ------ |
-| keygen(unsigned long bitLen) | generate a PaillierTD public/private key pair (pk; sk) | bitLen – the intense of key | NULL |
-| encrypt(mpz_t c, mpz_t m) | encpyt message m to c using public key pk | m – a plaintext, which is mpz_t type. mpz_t  is a GMP data type which is a multiple precision integer(same below). | c – encrypted result, is a ciphertext and mpz_t type. |
-| decrypt(mpz_t m, mpz_t c) | decpyt ciphertext c to plaintext m using private key sk | c – a ciphertext, which is mpz_t type. | m – decrypted result, is a plaintext and mpz_t type. |
-| add(mpz_t res, mpz_t c1, mpz_t c2)  | additive homomorphism operation | c1 –augend, is a ciphertext and mpz_t type, which must be less than n^2. c2 –another augend, is a ciphertext and mpz_t type, which must be less than n^2  | res – the result of additive homomorphism of c1 and c2, is a ciphertext, also mpz_t type.|
-| scl_mul(mpz_t res, mpz_t c, mpz_t e) | scalar-multiplication homomorphism operation | c – is a ciphertext and mpz_t type, which must be less than n^2.e – is a plaintext and mpz_t type, which must be less than n.| res – the result of scalar-multiplication homomorphism of c and e, is a ciphertext, also mpz_t type. |

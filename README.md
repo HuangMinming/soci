@@ -75,7 +75,7 @@ Given a ciphertext $c_1$ and a plaintext integer $e$,  this algorithm computes t
 Given ciphertexts $ex$ and $ey$, this algorithm computes the multiplication homomorphism and outputs the result $res$. Suppose $ex=[\![x]\!]$ and $ey=[\![y]\!]$. Then, the result $res=[\![x\cdot y]\!]$. The result $res$ is mpz_t type.
 
 ## PaillierThd.scmp()
-Given ciphertexts $ex$ and $ey$, this algorithm computes the secure comparison result $res$. Suppose $ex=[\![x]\!]$ and $ey=[\![y]\!]$. Then, the result $res=[\![1]\!]$ if $x<y$, and $res=[\![0]\!]$ if $x\geq y$.  The result $res$ is mpz_t type.
+Given ciphertexts $ex$ and $ey$, this algorithm computes the secure comparison result $res$. Suppose $ex=[\![x]\!]$ and $ey=[\![y]\!]$. Then, the result $res=[\![1]\!]$ if $x &lt y$, and $res=[\![0]\!]$ if $x\geq y$.  The result $res$ is mpz_t type.
 
 ## PaillierThd.ssba()
 Given a ciphertext $ex$, this algorithm computes the secure sign bit-acquisition result $s_x$ and $u_x$. Suppose $ex=[\![x]\!]$. Then, the result $s_x=[\![1]\!]$ and $u_x=[\![-x]\!]$ if $x<0$, and $s_x=[\![0]\!]$ and $u_x=[\![x]\!]$ if $x\geq 0$.  Both $s_x$ and $u_x$ are mpz_t type ciphertext.

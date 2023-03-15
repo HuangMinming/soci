@@ -1,11 +1,13 @@
+#<center>Secure Computation on Integers Scheme -- C/C++ Project
+
 # SOCI
-.
+
 SOCI (secure outsourced computation on integers scheme) provides a twin-server architecture for secure outsourced computation based on Paillier cryptosystem, which supports computations on encrypted integers rather than just natural numbers [1]. It significently improves the computation efficiency compared with fully homomorphic encryption mechanism. SOCI includes a suite of efficient secure computation protocols, including secure multiplication ($\textsf{SMUL}$), secure comparison ($\textsf{SCMP}$), secure sign bit-acquisition ($\textsf{SSBA}$) and secure division ($\textsf{SDIV}$). The protocols realize secure computations on both non-negative integers and negative integers. 
 
 
 # Preliminary
 
-The protocols in SOCI are built based on Pairlliar cryptosystem with threshold decryption (PaillierTD), which is a variant of the conventional Paillier cryptosystem. PaillierTD splits the private key of the Paillier cryptosystem into two partially private keys. Any partially private key cannot effectively decrypt a given ciphertext encrypted by the Paillier cryptosystem. PaillierTD consists of the following algorithms.
+The protocols in SOCI are built based on Pailliar cryptosystem with threshold decryption (PaillierTD), which is a variant of the conventional Paillier cryptosystem. PaillierTD splits the private key of the Paillier cryptosystem into two partially private keys. Any partially private key cannot effectively decrypt a given ciphertext encrypted by the Paillier cryptosystem. PaillierTD consists of the following algorithms.
 
 $\textbf{Key Generation} (\textsf{KeyGen})$: Let $p,q$ be two strong prime numbers (i.e., $p=2p'+1$ and $q=2q'+1$, where $p'$ and $q'$ are prime numbers) with $\kappa$ bits (e.g., $\kappa=512$). Compute $N=p\cdot q$, $\lambda=lcm(p-1,q-1)$ and $\mu=\lambda^{-1}\mod N$. Let the generator $g=N+1$, the public key $pk=(g,n)$ and the private key $sk=\lambda$.
 
@@ -37,6 +39,9 @@ The system architecture of SOCI is shown in the figure above, which consists of 
 
 
 # SOCI API Description
+
+The project in this version is written in C/C++.
+
 ## Paillier.keygen()
 
 Taken as input a security parameter $\kappa$, this algorithm generates two strong prime numbers $p$, $q$ with $\kappa$ bits. Then, it compute $N = p\cdot q$, $\lambda=lcm(p-1,q-1)$, $\mu=\lambda^{-1}\mod N$ and $g= N+1$. It outputs the public key $pk=(g,N)$ and private key $sk=\lambda$.
@@ -44,7 +49,7 @@ Taken as input a security parameter $\kappa$, this algorithm generates two stron
 
 
 ## ThirdKeyGen.thdkeygen()
-Taken as input the private key  $sk$ , this algorithm computes $sk_1$ and $sk_2$. The cloud platform stores $cp=(pk,sk_1)$ and the computation service provider stores $csp=(pk, sk2)$.
+Taken as input the private key  $sk$ , this algorithm computes $sk_1$ and $sk_2$. The cloud platform stores $cp=(pk,sk_1)$ and the computation service provider stores $csp=(pk, sk_2)$.
 
 The private key $sk=\lambda$ is split into two parts denoted by $sk_1 = \lambda_1$ and $sk_2 = \lambda_2$, s.t., $\lambda_1+\lambda_2=0\mod\lambda$ and $\lambda_1+\lambda_2=1\mod N$. 
 

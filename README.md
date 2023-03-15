@@ -1,4 +1,4 @@
-#<center>Secure Computation on Integers Scheme -- C/C++ Project
+# <center>Secure Computation on Integers Scheme -- C/C++ Project
 
 # SOCI
 
@@ -162,10 +162,8 @@ make
 
 
 # Benchmark
-in src/Main.cpp, you can change the value of KEY_LEN_BIT and SIGMA_LEN_BIT . KEY_LEN_BIT determine the big prime's length in bit, and  SIGMA_LEN_BIT determine sk1's length in bit.
+in src/Main.cpp, you can change the value of KEY_LEN_BIT and SIGMA_LEN_BIT . KEY_LEN_BIT determine the length of the big prime in bits, and  SIGMA_LEN_BIT determine the length of $sk_1$ in bits.
 
 # Reference
 
 1. Bowen Zhao, Jiaming Yuan, Ximeng Liu, Yongdong Wu, Hwee Hwa Pang, and Robert H. Deng. SOCI: A toolkit for secure outsourced computation on integers. IEEE Transactions on Information Forensics and Security, 2022, 17: 3637-3648.
-
-2. Bowen Zhao, Yingjiu Li, Ximeng Liu, Hwee Hua Pang, and Robert H. Deng. FREED: An efficient privacy-preserving solution for person re-identification. IEEE Conference on Dependable and Secure Computing (DSC), 2022, pp. 1-8.

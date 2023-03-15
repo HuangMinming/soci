@@ -7,7 +7,7 @@
 | encrypt(mpz_t $c$, mpz_t $m$) | encpyt message $m$ to $c$ using public key $pk$ | $m$ – a plaintext, which is mpz_t type. mpz_t  is a GMP data type which is a multiple precision integer(same below). | $c$ – encrypted result, is a ciphertext and mpz_t type. |
 | decrypt(mpz_t $m$, mpz_t $c$) | decpyt ciphertext $c$ to plaintext $m$ using private key $sk$ | $c$ – a ciphertext, which is mpz_t type. | $m$ – decrypted result, is a plaintext and mpz_t type. |
 | add(mpz_t $res$, mpz_t $c_1$, mpz_t $c_2$)  | additive homomorphism operation |$c_1$ –augend, is a ciphertext and mpz_t type, which should between 0 and $N^2$. <br>$c_2$ –another augend, is a ciphertext and mpz_t type, which should between 0 and $N^2$  | $res$ – the result of additive homomorphism of $c_1$ and $c_2$, is a ciphertext, also mpz_t type.|
-| scl_mul(mpz_t $res$, mpz_t $c$, mpz_t $e$) | scalar-multiplication homomorphism operation | $c$ – is a ciphertext and mpz_t type, which should between 0 and $n^2$.<br>e – is a plaintext and mpz_t type, which should between 0 and $n^2$.| $res$ – the result of scalar-multiplication homomorphism of $c$ and $e$, is a ciphertext, also mpz_t type. |
+| scl_mul(mpz_t $res$, mpz_t $c$, mpz_t $e$) | scalar-multiplication homomorphism operation | $c$ – is a ciphertext and mpz_t type, which should between 0 and $N^2$.<br>e – is a plaintext and mpz_t type, which should between 0 and $N^2$.| $res$ – the result of scalar-multiplication homomorphism of $c$ and $e$, is a ciphertext, also mpz_t type. |
 
 ## ThirdKeyGen
 | Function Name | Description | Input | Output |

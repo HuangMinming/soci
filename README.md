@@ -9,7 +9,7 @@ SOCI (secure outsourced computation on integers scheme) provides a twin-server a
 
 The protocols in SOCI are built based on Pailliar cryptosystem with threshold decryption (PaillierTD), which is a variant of the conventional Paillier cryptosystem. PaillierTD splits the private key of the Paillier cryptosystem into two partially private keys. Any partially private key cannot effectively decrypt a given ciphertext encrypted by the Paillier cryptosystem. PaillierTD consists of the following algorithms.
 
-$\textbf{Key Generation} (\textsf{KeyGen})$: Let $p,q$ be two strong prime numbers (i.e., $p=2p'+1$ and $q=2q'+1$, where $p'$ and $q'$ are prime numbers) with $\kappa$ bits (e.g., $\kappa=512$). Compute $N=p\cdot q$, $\lambda=lcm(p-1,q-1)$ and $\mu=\lambda^{-1}\mod N$. Let the generator $g=N+1$, the public key $pk=(g,n)$ and the private key $sk=\lambda$.
+$\textbf{Key Generation} (\textsf{KeyGen})$: Let $p,q$ be two strong prime numbers (i.e., $p=2p'+1$ and $q=2q'+1$, where $p'$ and $q'$ are prime numbers) with $\kappa$ bits (e.g., $\kappa=512$). Compute $N=p\cdot q$, $\lambda=lcm(p-1,q-1)$ and $\mu=\lambda^{-1}\mod N$. Let the generator $g=N+1$, the public key $pk=(g,N)$ and the private key $sk=\lambda$.
 
 The private key $\lambda$ is split into two parts denoted by $sk_1=\lambda_1$ and $sk_2=\lambda_2$, s.t., $\lambda_1+\lambda_2=0\mod\lambda$ and $\lambda_1+\lambda_2=1\mod N$. According to the Chinese remainder theorem, we can calculate $\sigma=\lambda_1+\lambda_2=\lambda\cdot\mu\mod(\lambda\cdot\mu)$ to make $\delta=0\mod\lambda$ and $\delta=1\mod N$ hold at the same time, where $\lambda_1$ can be a $\sigma$-bit random number and $\lambda_2=\lambda\cdot\mu+\eta\cdot\lambda N-\lambda_1$ ($\eta$ is a non-negative integer).
 
@@ -74,7 +74,7 @@ Given two ciphertext $c_1$ and $c_2$,  this algorithm computes the additive homo
 
 ## Paillier.scl_mul()
 Given a ciphertext $c_1$ and a plaintext integer $e$,  this algorithm computes the scalar-multiplication homomorphism and output the result $res$. Suppose $c_1=[m_1]$. Then, the result $res=[m_1]^e$.
- The input ciphertext $c_1$ should between 0 and $n^2$, $e$ is a plaintext and should be between 0 and $n$. Both of $c_1$ and $e$ should be mpz_t type. The result $res$ is also mpz_t type.
+ The input ciphertext $c_1$ should between 0 and $N^2$, $e$ is a plaintext and should be between 0 and $N$. Both of $c_1$ and $e$ should be mpz_t type. The result $res$ is also mpz_t type.
 
 ## PaillierThd.smul()
 Given ciphertexts $ex$ and $ey$, this algorithm computes the multiplication homomorphism and outputs the result $res$. Suppose $ex=[x]$ and $ey=[y]$. Then, the result $res=[x\cdot y]$. The result $res$ is mpz_t type.

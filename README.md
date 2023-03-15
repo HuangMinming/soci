@@ -13,19 +13,19 @@ $\textbf{Key Generation} (\textsf{KeyGen})$: Let $p,q$ be two strong prime numbe
 
 The private key $\lambda$ is split into two parts denoted by $sk_1=\lambda_1$ and $sk_2=\lambda_2$, s.t., $\lambda_1+\lambda_2=0\mod\lambda$ and $\lambda_1+\lambda_2=1\mod N$. According to the Chinese remainder theorem, we can calculate $\sigma=\lambda_1+\lambda_2=\lambda\cdot\mu\mod(\lambda\cdot\mu)$ to make $\delta=0\mod\lambda$ and $\delta=1\mod N$ hold at the same time, where $\lambda_1$ can be a $\sigma$-bit random number and $\lambda_2=\lambda\cdot\mu+\eta\cdot\lambda N-\lambda_1$ ($\eta$ is a non-negative integer).
 
-$\textbf{Encryption} (\textsf{Enc})$: Taken as input a message $m\in\mathbb{Z}_N$, this algorithm outputs $[\![m]\!]\leftarrow\textsf{Enc}(pk,m)=g^m\cdot r^N\mod N^2$, where $r$ is a random number in $\mathbb{Z}^*_N$ and $[\![m]\!]=[\![m\mod N]\!]$. 
+$\textbf{Encryption} (\textsf{Enc})$: Taken as input a message $m\in\mathbb{Z}_N$, this algorithm outputs $[m]\leftarrow\textsf{Enc}(pk,m)=g^m\cdot r^N\mod N^2$, where $r$ is a random number in $\mathbb{Z}^*_N$ and $[m]=[m\mod N]$. 
 
-$\textbf{Decryption} (\textsf{Dec})$: Taken as input a ciphertext $[\![m]\!]$ and $sk$, this algorithm outputs $m\leftarrow\textsf{Dec}(sk,[\![m]\!])=L([\![m]\!]^{\lambda}\mod N^2)\cdot\mu\mod N$, where $L(x)=\frac{x-1}{N}$.
+$\textbf{Decryption} (\textsf{Dec})$: Taken as input a ciphertext $[m]$ and $sk$, this algorithm outputs $m\leftarrow\textsf{Dec}(sk,[m])=L([m]^{\lambda}\mod N^2)\cdot\mu\mod N$, where $L(x)=\frac{x-1}{N}$.
 
-$\textbf{Partial Decryption} (\textsf{PDec})$: Take as input a ciphertext $[\![m]\!]$ and a partially private key $sk_i$ ($i\in\{1,2\}$), and outputs $M_i\leftarrow\textsf{PDec}(sk_i,[\![m]\!])=[\![m]\!]^{\lambda_i}\mod N^2$.
+$\textbf{Partial Decryption} (\textsf{PDec})$: Take as input a ciphertext $[m]$ and a partially private key $sk_i$ ($i\in\{1,2\}$), and outputs $M_i\leftarrow\textsf{PDec}(sk_i,[m])=[m]^{\lambda_i}\mod N^2$.
 
 For brevity, we will omot $\mod N^2$ for $\textsf{Enc}$ algorithm in the rest of the document.
 
 PaillierTD has the additive homomorphism and scalar-multipilication homomorphism as follows.
 
-- Additive homomorphism: $\textsf{Dec}(sk,[\![m_1+m_2\mod N]\!])=\textsf{Dec}(sk,[\![m_1]\!]\cdot[\![m_2]\!])$;
+- Additive homomorphism: $\textsf{Dec}(sk,[m_1+m_2\mod N])=\textsf{Dec}(sk,[m_1]\cdot[m_2])$;
 
-- Scalar-multiplication homomorphism: $\textsf{Dec}(sk,[\![c\cdot m\mod N]\!])=\textsf{Dec}(sk,[\![m]\!]^c)$ for $c\in\mathbb{Z}^*_N$. Particularly, when $c=N-1$, $\textsf{Dec}(sk,[\![m]\!]^c)=-m$ holds.
+- Scalar-multiplication homomorphism: $\textsf{Dec}(sk,[c\cdot m\mod N])=\textsf{Dec}(sk,[m]^c)$ for $c\in\mathbb{Z}^*_N$. Particularly, when $c=N-1$, $\textsf{Dec}(sk,[m]^c)=-m$ holds.
 
 
 # System Architecture
@@ -70,24 +70,24 @@ Given a ciphertext $c$, this algorithm partial decrypts $c$ into partially decry
 Given partially decrypted ciphtexts $C_1$ and $C_2$ are partially decrypted ciphertext of c, this algorithm outputs the plaintext $m$ of $c$. The output plaintext $m$ is mpz_t type.
 
 ## Paillier.add()
-Given two ciphertext $c_1$ and $c_2$,  this algorithm computes the additive homomorphism and output the result $res$. Suppose $c_1=[\![m_1]\!]$ and $c_2=[\![m_2]\!]$. Then, the result $res=[\![m_1+m_2]\!]$. The input ciphertexts $c_1$ and $c_2$ should be mpz_t type and the values should between 0 and $N^2$. The outputresult res is also mpz_t type.
+Given two ciphertext $c_1$ and $c_2$,  this algorithm computes the additive homomorphism and output the result $res$. Suppose $c_1=[m_1]$ and $c_2=[m_2]$. Then, the result $res=[m_1+m_2]$. The input ciphertexts $c_1$ and $c_2$ should be mpz_t type and the values should between 0 and $N^2$. The outputresult res is also mpz_t type.
 
 ## Paillier.scl_mul()
-Given a ciphertext $c_1$ and a plaintext integer $e$,  this algorithm computes the scalar-multiplication homomorphism and output the result $res$. Suppose $c_1=[\![m_1]\!]$. Then, the result $res=[\![m_1]\!]^e$.
+Given a ciphertext $c_1$ and a plaintext integer $e$,  this algorithm computes the scalar-multiplication homomorphism and output the result $res$. Suppose $c_1=[m_1]$. Then, the result $res=[m_1]^e$.
  The input ciphertext $c_1$ should between 0 and $n^2$, $e$ is a plaintext and should be between 0 and $n$. Both of $c_1$ and $e$ should be mpz_t type. The result $res$ is also mpz_t type.
 
 ## PaillierThd.smul()
-Given ciphertexts $ex$ and $ey$, this algorithm computes the multiplication homomorphism and outputs the result $res$. Suppose $ex=[\![x]\!]$ and $ey=[\![y]\!]$. Then, the result $res=[\![x\cdot y]\!]$. The result $res$ is mpz_t type.
+Given ciphertexts $ex$ and $ey$, this algorithm computes the multiplication homomorphism and outputs the result $res$. Suppose $ex=[x]$ and $ey=[y]$. Then, the result $res=[x\cdot y]$. The result $res$ is mpz_t type.
 
 ## PaillierThd.scmp()
-Given ciphertexts $ex$ and $ey$, this algorithm computes the secure comparison result $res$. Suppose $ex=[\![x]\!]$ and $ey=[\![y]\!]$. Then, the result $res=[\![1]\!]$ if $x \lt y$, and $res=[\![0]\!]$ if $x\geq y$.  The result $res$ is mpz_t type.
+Given ciphertexts $ex$ and $ey$, this algorithm computes the secure comparison result $res$. Suppose $ex=[x]$ and $ey=[y]$. Then, the result $res=[1]$ if $x \lt y$, and $res=[0]$ if $x\geq y$.  The result $res$ is mpz_t type.
 
 ## PaillierThd.ssba()
-Given a ciphertext $ex$, this algorithm computes the secure sign bit-acquisition result $s_x$ and $u_x$. Suppose $ex=[\![x]\!]$. Then, the result $s_x=[\![1]\!]$ and $u_x=[\![-x]\!]$ if $x<0$, and $s_x=[\![0]\!]$ and $u_x=[\![x]\!]$ if $x\geq 0$.  Both $s_x$ and $u_x$ are mpz_t type ciphertext.
+Given a ciphertext $ex$, this algorithm computes the secure sign bit-acquisition result $s_x$ and $u_x$. Suppose $ex=[x]$. Then, the result $s_x=[1]$ and $u_x=[-x]$ if $x<0$, and $s_x=[0]$ and $u_x=[x]$ if $x\geq 0$.  Both $s_x$ and $u_x$ are mpz_t type ciphertext.
 
 ## PaillierThd.sdiv()
 
-Given ciphertexts $ex$ and $ey$ (say $ex=[\![x]\!]$ and $ey=[\![y]\!]$), this algorithm computes the encrypted quotient $eq$ and the encrypted remainder $er$ of $x$ divided by $y$. Another input is a ciphertext $el$ ($el=[\![\ell]\!]$), where $\ell$ is a constant (e.g., $\ell$ = 32) used to control the domain size of plaintext.
+Given ciphertexts $ex$ and $ey$ (say $ex=[x]$ and $ey=[y]$), this algorithm computes the encrypted quotient $eq$ and the encrypted remainder $er$ of $x$ divided by $y$. Another input is a ciphertext $el$ ($el=[\ell]$), where $\ell$ is a constant (e.g., $\ell$ = 32) used to control the domain size of plaintext.
 
 
 # build Dependencies

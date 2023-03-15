@@ -274,6 +274,55 @@ namespace phe {
 
 	void Paillier::keygen(unsigned long bitLen) {
 
+		mpz_t r, p, q, pp, qq, quotient,remainder;
+		mpz_inits(r, p, q, pp, qq, quotient,remainder, NULL);
+
+		mpz_rrandomb(r, gmp_rand, bitLen);
+		/*generate p = 2p'+1*/
+		while(1) {
+			mpz_nextprime(p, r);
+			mpz_sub_ui(pp, p, 1);
+			mpz_fdiv_qr_ui(quotient, remainder, pp, 2);
+			if(mpz_cmp_ui(remainder, 0) != 0) /*remainder is not 0, p must be even number*/
+			{
+				continue;
+			}	
+			
+			if(mpz_probab_prime_p(quotient, 20) !=0) /*quotient is prime, break*/
+			{
+				break;
+			}
+			mpz_set(r, p);
+			//gmp_printf("p = %Zd, quotient = %Zd, remainder = %Zd\n", p, quotient, remainder);
+
+		}
+		mpz_set(r, p);
+		/*generate q = 2q'+1, and q > p*/
+		while(1) {
+			mpz_nextprime(q, r);
+			mpz_sub_ui(qq, q, 1);
+			mpz_fdiv_qr_ui(quotient, remainder, qq, 2);
+			if(mpz_cmp_ui(remainder, 0) != 0) /*remainder is not 0, p must be even number*/
+			{
+				continue;
+			}	
+			
+			if(mpz_probab_prime_p(quotient, 20) !=0) /*quotient is prime, break*/
+			{
+				break;
+			}
+			mpz_set(r, q);
+			//gmp_printf("q = %Zd, quotient = %Zd, remainder = %Zd\n", q, quotient, remainder);
+
+
+		}
+		keygen(p, q);
+
+		mpz_clears(r, p, q, pp, qq, quotient,remainder, NULL);
+	}
+	/*
+	void Paillier::keygen(unsigned long bitLen) {
+
 		mpz_t p, q;
 		mpz_inits(p, q, NULL);
 
@@ -283,7 +332,7 @@ namespace phe {
 		keygen(p, q);
 
 		mpz_clears(p, q, NULL);
-	}
+	}*/
 
 	void Paillier::keygen(mpz_t p, mpz_t q) {
 
@@ -302,6 +351,8 @@ namespace phe {
 	}
 
 
+
+	/*
 	void Paillier::encrypt(mpz_t c, mpz_t m) {
 
 		if (mpz_cmp(m, pubkey.n) >= 0) {
@@ -332,8 +383,23 @@ namespace phe {
 		mpz_urandomm(r, gmp_rand, pubkey.n);
 		encrypt(c, m1, r);
 		mpz_clears(r, m1, NULL);
-	}
+	}*/
 
+	void Paillier::encrypt(mpz_t c, mpz_t m) {
+
+		if (mpz_cmp(m, pubkey.n) >= 0) {
+
+			throw("m must be less than n");
+			return;
+		}
+
+		mpz_t r;
+		mpz_init(r);
+		mpz_urandomm(r, gmp_rand, pubkey.n);
+		encrypt(c, m, r);
+		mpz_clears(r, NULL);
+	}
+	/*
 	void Paillier::encrypt(mpz_t c, mpz_t m, mpz_t r) {
 
 		if (mpz_cmp(m, pubkey.n) >= 0) {
@@ -358,18 +424,38 @@ namespace phe {
 		}
 
 		// g^m * r^n mod n^2
-		/*mpz_mul(c, m, puk.e1);			 // m·n
-		mpz_add_ui(c, c, 1);			 // 1 + m·n
-		mpz_powm(r, r, puk.e1, puk.e3);  // r^n mod n^2
-		mpz_mul(c, c, r);                // (1+m·N)·r^n
-		mpz_mod(c, c, puk.e3);			 // (1+m·N)·r^n mod n^2
-		*/
+		//mpz_mul(c, m, puk.e1);			 // mï¿½n
+		//mpz_add_ui(c, c, 1);			 // 1 + mï¿½n
+		//mpz_powm(r, r, puk.e1, puk.e3);  // r^n mod n^2
+		//mpz_mul(c, c, r);                // (1+mï¿½N)ï¿½r^n
+		//mpz_mod(c, c, puk.e3);			 // (1+mï¿½N)ï¿½r^n mod n^2
+		
 		mpz_powm(c, pubkey.g, m1, pubkey.nsquare);
 		mpz_powm(r, r, pubkey.n, pubkey.nsquare);
 		mpz_mul(c, c, r);
 		mpz_mod(c, c, pubkey.nsquare);
-	}
+	}*/
 
+	void Paillier::encrypt(mpz_t c, mpz_t m, mpz_t r) {
+
+		if (mpz_cmp(m, pubkey.n) >= 0) {
+			throw("m must be less than n");
+			return;
+		}
+
+		// g^m * r^n mod n^2
+		/*mpz_mul(c, m, puk.e1);			 // mÂ·n
+		mpz_add_ui(c, c, 1);			 // 1 + mÂ·n
+		mpz_powm(r, r, puk.e1, puk.e3);  // r^n mod n^2
+		mpz_mul(c, c, r);                // (1+mÂ·N)Â·r^n
+		mpz_mod(c, c, puk.e3);			 // (1+mÂ·N)Â·r^n mod n^2
+		*/
+		mpz_powm(c, pubkey.g, m, pubkey.nsquare);
+		mpz_powm(r, r, pubkey.n, pubkey.nsquare);
+		mpz_mul(c, c, r);
+		mpz_mod(c, c, pubkey.nsquare);
+	}
+	/*
 	void Paillier::decrypt(mpz_t m, mpz_t c) {
 		if (mpz_cmp(c, prikey.nsquare) >= 0) {
 			throw("ciphertext must be less than n^2");
@@ -389,6 +475,22 @@ namespace phe {
 		if (mpz_cmp(m, prikey.half_n) > 0) {
 			mpz_sub(m, m, prikey.n);
 		}
+	}
+	*/
+	void Paillier::decrypt(mpz_t m, mpz_t c) {
+		if (mpz_cmp(c, prikey.nsquare) >= 0) {
+			throw("ciphertext must be less than n^2");
+			return;
+		}
+
+		// c=c^lambda mod n^2
+		mpz_powm(m, c, prikey.lambda, prikey.nsquare);
+
+		// (c - 1) / n * lambda^(-1) mod n
+		mpz_sub_ui(m, m, 1);			// c=c-1
+		mpz_fdiv_q(m, m, prikey.n);		// c=(c-1)/n
+		mpz_mul(m, m, prikey.lmdInv);	// c=c*lambda^(-1)
+		mpz_mod(m, m, prikey.n);		// m=c mod n
 	}
 
 	void Paillier::add(mpz_t res, mpz_t c1, mpz_t c2) {
@@ -454,7 +556,7 @@ namespace phe {
 
 		mpz_rrandomb(sk1, gmp_rand, sigma);	// sk1 is a ranodm number with sigma bits
 		mpz_mul(sk2, pai.prikey.lambda, pai.prikey.lmdInv);
-		mpz_sub(sk2, sk2, sk1);				// sk2 = lambda · mu - sk1
+		mpz_sub(sk2, sk2, sk1);				// sk2 = lambda Â· mu - sk1
 		PaillierThdPrivateKey* tmpPSK = NULL;
 		tmpPSK = new PaillierThdPrivateKey(sk1, pai.prikey.n, pai.prikey.nsquare);
 		*cp = PaillierThd(*tmpPSK, pai.pubkey);

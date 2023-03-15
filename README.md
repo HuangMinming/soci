@@ -134,29 +134,29 @@ make
 ./bin/soci
 ```
 ## Output:
-    set x = -99, y = -789
-    run add function, its running time is  ------  0.004000 ms
-    x + y = -888
+    set x = 99, y = 789
+    run add function, its running time is  ------  0.010000 ms
+    x + y = 888
     ---------------------------
-    set x = -99, y = -789
-    compute scl_mul function, its running time is  ------  0.044000 ms
+    set x = 99, y = 789
+    compute scl_mul function, its running time is  ------  0.018000 ms
     x*y = 78111
     ---------------------------
     Secure computation protocols
-    set x = -99, y = -789
-    compute SMUL function, its running time is  ------  15.234000 ms
+    set x = 99, y = 789
+    compute SMUL function, its running time is  ------  13.986000 ms
     x*y = 78111
     ---------------------------
-    set x = -99, y = -789
-    compute SCMP function, its running time is  ------  7.397000 ms
-    x>=y? = 0
+    set x = 99, y = 789
+    compute SCMP function, its running time is  ------  7.919000 ms
+    x>=y? = 1
     ---------------------------
-    set x = -99
-    compute SSBA function, its running time is  ------  23.278000 ms
-    s_x = 1 u_x = 99
+    set x = 99
+    compute SSBA function, its running time is  ------  21.188000 ms
+    s_x = 0 u_x = 99
     ---------------------------
     set x = 5429496723, y = 9949672
-    compute SDIV function, its running time is  ------  739.991000 ms
+    compute SDIV function, its running time is  ------  742.709000 ms
     q = 545 r = 6925483
     ---------------------------
 

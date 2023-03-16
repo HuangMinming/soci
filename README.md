@@ -55,7 +55,7 @@ The private key $sk=\lambda$ is split into two parts denoted by $sk_1 = \lambda_
 
 
 ## Paillier.encrypt()
-Taken as input a plaintext $m$ which is mpz_t type,  this algorithm encrypts $m$ into ciphertext $c$ with public $pk$. The output ciphertext $c$ is also mpz_t type. In the computations of SOCI, the value of message m should be between $-N/2$ and $N/2$.
+Taken as input a plaintext $m$ which is mpz_t type,  this algorithm encrypts $m$ into ciphertext $c$ with public $pk$. The output ciphertext $c$ is also mpz_t type. In the computations of SOCI, the value of message $m$ should be between $-N/2$ and $N/2$.
 
 Note: mpz_t is a GMP data type which is a multiple precision integer. 
 
@@ -67,10 +67,10 @@ Taken as input a ciphertext $c$,  this algorithm decrypts $c$ into plaintext $m$
 Given a ciphertext $c$, this algorithm partial decrypts $c$ into partially decrypted ciphertext $C_1$ with partial secret key $sk_1$, or partial decrypts $c$ into $C_2$ with $sk_2$. Both $C_1$ and $C_2$ are and mpz_t type.
 
 ## PaillierThd.fdec()
-Given partially decrypted ciphtexts $C_1$ and $C_2$ are partially decrypted ciphertext of c, this algorithm outputs the plaintext $m$ of $c$. The output plaintext $m$ is mpz_t type.
+Given partially decrypted ciphtexts $C_1$ and $C_2$ are partially decrypted ciphertext of $c$, this algorithm outputs the plaintext $m$ of $c$. The output plaintext $m$ is mpz_t type.
 
 ## Paillier.add()
-Given two ciphertext $c_1$ and $c_2$,  this algorithm computes the additive homomorphism and output the result $res$. Suppose $c_1=[m_1]$ and $c_2=[m_2]$. Then, the result $res=[m_1+m_2]$. The input ciphertexts $c_1$ and $c_2$ should be mpz_t type and the values should between 0 and $N^2$. The outputresult res is also mpz_t type.
+Given two ciphertext $c_1$ and $c_2$,  this algorithm computes the additive homomorphism and output the result $res$. Suppose $c_1=[m_1]$ and $c_2=[m_2]$. Then, the result $res=[m_1+m_2]$. The input ciphertexts $c_1$ and $c_2$ should be mpz_t type and the values should between 0 and $N^2$. The outputresult $res$ is also mpz_t type.
 
 ## Paillier.scl_mul()
 Given a ciphertext $c_1$ and a plaintext integer $e$,  this algorithm computes the scalar-multiplication homomorphism and output the result $res$. Suppose $c_1=[m_1]$. Then, the result $res=[m_1]^e$.

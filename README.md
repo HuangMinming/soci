@@ -160,6 +160,19 @@ make
     q = 545 r = 6925483
     ---------------------------
 
+# Performance
+We used different KEY_LEN_BIT to test the performance of each function. The experimental environment is 1 cpu, 4G memory, the experimental results are as follows:  
+|**Length of key in bit**| **KEY_LEN_BIT**|**256**|**378**|**512**|**640**| **768** | **896** | **1024**|
+| ------ | ------ | ------ | ------ |------ |------ |  ------ |------ |------ |------ |
+|Secure Addition | add | 0.0008 | 0.0015 | 0.00185| 0.00255| 0.00365 | 0.0044| 0.0083|
+|Secure Scalar Multiplication | scl_mul |0.01545 | 0.0281 | 0.04375 | 0.0673 | 0.1126 | 0.1598 | 0.1788 |
+|Secure Multiplication | SMUL| 2.61065 | 7.3093 | 14.0893 | 26.82715 | 44.70475 | 70.4079 | 113.5124 |
+|Secure Comparison | SCMP | 1.15565 | 3.9251 | 7.22935 | 14.3569 | 22.9908 | 35.00855 | 52.81135|
+|Secure Sign Bit-Acquisition | SSBA | 3.56665 | 11.98615 | 20.9651 | 42.0803 | 70.2459 | 102.4977 | 163.8692|
+|Secure Division | SDIV | 118.40825 | 344.2887 | 734.2128 | 1305.7984 | 2283.9107 | 3634.07345 | 5521.296|
+
+notes:The time unit is ms.
+
 
 # Benchmark
 in src/Main.cpp, you can change the value of KEY_LEN_BIT and SIGMA_LEN_BIT . KEY_LEN_BIT determine the length of the big prime in bits, and  SIGMA_LEN_BIT determine the length of $sk_1$ in bits.

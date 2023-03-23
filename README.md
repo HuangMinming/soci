@@ -164,6 +164,8 @@ make
 We used different KEY_LEN_BIT to test the performance of each function. The experimental environment is 1 cpu, 4G memory, the experimental results are as follows:  
 |**Length of key in bit**| **KEY_LEN_BIT**|**256**|**378**|**512**|**640**| **768** | **896** | **1024**|
 | ------ | ------ | ------ | ------ |------ |------ |  ------ |------ |------ |
+| PaillierTD Encryption	| encrypt | 0.23365	| 0.68675	| 1.65785	| 2.855	| 4.6921	| 8.4735	| 11.00935| 
+| PaillierTD Decryption	| decrypt | 0.28215	| 0.61185	| 1.53005	| 2.9767	| 4.77085	| 7.6919	| 11.04565| 
 |Secure Addition | add | 0.0008 | 0.0015 | 0.00185| 0.00255| 0.00365 | 0.0044| 0.0083|
 |Secure Scalar Multiplication | scl_mul |0.01545 | 0.0281 | 0.04375 | 0.0673 | 0.1126 | 0.1598 | 0.1788 |
 |Secure Multiplication | SMUL| 2.61065 | 7.3093 | 14.0893 | 26.82715 | 44.70475 | 70.4079 | 113.5124 |

@@ -161,17 +161,17 @@ make
     ---------------------------
 
 # Performance
-We used different KEY_LEN_BIT to test the performance of each function. T a laptop with CPU 10th Gen Intel(R) Core(TM) i5-10210U CPU @ 1.60GHz and 2.11 GHz, and 16G memory. The experimental results are as follows:  
-|**Length of key in bit**| **KEY_LEN_BIT**|**256**|**378**|**512**|**640**| **768** | **896** | **1024**|
+We used different KEY_LEN_BIT to test the performance of each function. The experimental environment is a laptop with CPU 10th Gen Intel(R) Core(TM) i5-10210U, 2 cores @ 2.70GHz and 2 cores @ 2.69 GHz, and 16G memory. The experimental results are as follows:
+|**Length of key in bit**| **KEY_LEN_BIT**|**256**|**384**|**512**|**640**| **768** | **896** | **1024**|
 | ------ | ------ | ------ | ------ |------ |------ |  ------ |------ |------ |
-| PaillierTD Encryption	| encrypt	| 0.2027	| 0.5258	| 1.3021	| 2.2398	| 3.7291	| 5.8398	| 8.42085 | 
-| PaillierTD Decryption	| decrypt	| 0.18665	| 0.4983	| 1.2527	| 2.1403	| 4.07765	| 5.9455	| 8.32235 | 
-| Secure Addition	| add	| 0.0006	| 0.00105	| 0.00155	| 0.00215	| 0.00295	| 0.0037	| 0.00445 | 
-| Secure Scalar Multiplication	| scl_mul	| 0.0145	| 0.02475	| 0.0374	| 0.05965	| 0.0781	| 0.10245	| 0.1352 | 
-| Secure Multiplication	| SMUL	| 2.052	| 5.20985	| 12.08625	| 20.74675	| 36.33415	| 53.7908	| 78.95545 | 
-| Secure Comparison	| SCMP	| 0.96445	| 2.6592	| 6.2881	| 10.40805	| 17.8542	| 26.8494	| 39.1886 | 
-| Secure Sign Bit-Acquisition	| SSBA	| 2.7942	| 7.8566	| 18.1517	| 31.4338	| 53.4814	| 80.3627	| 119.47695 | 
-| Secure Division	| SDIV	| 90.8249	| 260.1481	| 614.2622	| 1068.9668	| 1810.8777	| 2705.7796	| 3947.1314 | 
+| 	PaillierTD Encryption		| 	encrypt	| 	0.31015	| 	0.5553	| 	1.21225	| 	2.1346	| 	3.76635	| 	5.97745	| 	8.01885	| 
+| 	PaillierTD Decryption		| 	decrypt	| 	0.24085	| 	0.54355	| 	1.2006	| 	2.1238	| 	3.8087	| 	5.73475	| 	7.98915	| 
+| 	Secure Addition		| 	add	| 	0.0007	| 	0.001	| 	0.0014	| 	0.00205	| 	0.0029	| 	0.0046	| 	0.0045	| 
+| 	Secure Scalar Multiplication		| 	scl_mul	| 	0.0146	| 	0.0245	| 	0.0374	| 	0.0529	| 	0.0775	| 	0.11135	| 	0.1269	| 
+| 	Secure Multiplication		| 	SMUL	| 	2.0798	| 	5.6713	| 	12.12965	| 	20.92335	| 	37.91795	| 	54.50355	| 	82.22075	| 
+| 	Secure Comparison		| 	SCMP	| 	0.9691	| 	2.87705	| 	6.0354	| 	10.9546	| 	18.1335	| 	28.78905	| 	40.70935	| 
+| 	Secure Sign Bit-Acquisition		| 	SSBA	| 	2.8683	| 	8.49485	| 	18.34195	| 	31.9929	| 	54.5122	| 	83.05835	| 	124.2594	| 
+| 	Secure Division		| 	SDIV	| 	93.91275	| 	281.39765	| 	613.20965	| 	1090.61045	| 	1870.91515	| 	2863.31305	| 	4056.85975	| 
 
 The time unit is ms.
 

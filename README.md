@@ -161,19 +161,19 @@ make
     ---------------------------
 
 # Performance
-We used different KEY_LEN_BIT to test the performance of each function. The experimental environment is 1 cpu, 4G memory, the experimental results are as follows:  
+We used different KEY_LEN_BIT to test the performance of each function. T a laptop with CPU 10th Gen Intel(R) Core(TM) i5-10210U CPU @ 1.60GHz and 2.11 GHz, and 16G memory. The experimental results are as follows:  
 |**Length of key in bit**| **KEY_LEN_BIT**|**256**|**378**|**512**|**640**| **768** | **896** | **1024**|
 | ------ | ------ | ------ | ------ |------ |------ |  ------ |------ |------ |
-| PaillierTD Encryption	| encrypt | 0.23365	| 0.68675	| 1.65785	| 2.855	| 4.6921	| 8.4735	| 11.00935| 
-| PaillierTD Decryption	| decrypt | 0.28215	| 0.61185	| 1.53005	| 2.9767	| 4.77085	| 7.6919	| 11.04565| 
-|Secure Addition | add | 0.0008 | 0.0015 | 0.00185| 0.00255| 0.00365 | 0.0044| 0.0083|
-|Secure Scalar Multiplication | scl_mul |0.01545 | 0.0281 | 0.04375 | 0.0673 | 0.1126 | 0.1598 | 0.1788 |
-|Secure Multiplication | SMUL| 2.61065 | 7.3093 | 14.0893 | 26.82715 | 44.70475 | 70.4079 | 113.5124 |
-|Secure Comparison | SCMP | 1.15565 | 3.9251 | 7.22935 | 14.3569 | 22.9908 | 35.00855 | 52.81135|
-|Secure Sign Bit-Acquisition | SSBA | 3.56665 | 11.98615 | 20.9651 | 42.0803 | 70.2459 | 102.4977 | 163.8692|
-|Secure Division | SDIV | 118.40825 | 344.2887 | 734.2128 | 1305.7984 | 2283.9107 | 3634.07345 | 5521.296|
+| PaillierTD Encryption	| encrypt	| 0.2027	| 0.5258	| 1.3021	| 2.2398	| 3.7291	| 5.8398	| 8.42085 | 
+| PaillierTD Decryption	| decrypt	| 0.18665	| 0.4983	| 1.2527	| 2.1403	| 4.07765	| 5.9455	| 8.32235 | 
+| Secure Addition	| add	| 0.0006	| 0.00105	| 0.00155	| 0.00215	| 0.00295	| 0.0037	| 0.00445 | 
+| Secure Scalar Multiplication	| scl_mul	| 0.0145	| 0.02475	| 0.0374	| 0.05965	| 0.0781	| 0.10245	| 0.1352 | 
+| Secure Multiplication	| SMUL	| 2.052	| 5.20985	| 12.08625	| 20.74675	| 36.33415	| 53.7908	| 78.95545 | 
+| Secure Comparison	| SCMP	| 0.96445	| 2.6592	| 6.2881	| 10.40805	| 17.8542	| 26.8494	| 39.1886 | 
+| Secure Sign Bit-Acquisition	| SSBA	| 2.7942	| 7.8566	| 18.1517	| 31.4338	| 53.4814	| 80.3627	| 119.47695 | 
+| Secure Division	| SDIV	| 90.8249	| 260.1481	| 614.2622	| 1068.9668	| 1810.8777	| 2705.7796	| 3947.1314 | 
 
-notes:The time unit is ms.
+The time unit is ms.
 
 
 # Benchmark

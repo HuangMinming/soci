@@ -1,3 +1,4 @@
+#
 CXX = g++
 SRC = $(wildcard ./src/*.cpp)
 OBJS = $(patsubst ./src/%.cpp, ./obj/%.o, $(SRC))
@@ -8,6 +9,7 @@ CFLAGS += -I/usr/include
 CFLAGS += -Wall
 DIRS = $(BIN) obj
 TARGET = ./$(BIN)/soci
+
 
 
 all:$(DIRS) $(TARGET)

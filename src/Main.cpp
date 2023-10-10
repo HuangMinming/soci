@@ -24,6 +24,7 @@ int main() {
 	Paillier pai;
 	/*
 	generate a PaillierTD public/private key pair pai(pk; sk)
+	with KEY_LEN_BIT length
 	*/
 	pai.keygen(KEY_LEN_BIT);
 

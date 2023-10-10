@@ -40,6 +40,7 @@ namespace soci {
         get_secRandNum(r, sigma);
     }
 
+    /*Secure Multiplication Protocol*/
     void seccomp::smul(mpz_t res, mpz_t ex, mpz_t ey, PaillierThd cp, PaillierThd csp) {
         // step 1
         mpz_t r1, r2, er1, er2, X, Y, X1, Y1, r1r2, er1r2;
@@ -84,6 +85,7 @@ namespace soci {
         mpz_clears(exr2, eyr1, NULL);
     }
 
+    /*Secure Comparison Protocol*/
     void seccomp::scmp(mpz_t res, mpz_t ex, mpz_t ey, PaillierThd cp, PaillierThd csp) {
         //Step-1
         mpz_t r1, r2, r0, er2, D, D1, exr, eyr;
@@ -135,6 +137,7 @@ namespace soci {
         mpz_clears(d, D2, NULL);
     }
 
+    /*Secure Sign Bit-Acquisition Protocol*/
     void seccomp::ssba(mpz_t s_x, mpz_t u_x, mpz_t c, PaillierThd cp, PaillierThd csp) {
         // Step-1
         scmp(s_x, c, cp.ezero, cp, csp);
@@ -151,6 +154,7 @@ namespace soci {
         mpz_clears(sign, NULL);
     }
 
+    /*Secure Division Protocol*/
     void seccomp::sdiv(mpz_t eq, mpz_t er, mpz_t ex, mpz_t ey, int ell, PaillierThd cp, PaillierThd csp, Paillier pai) {
         mpz_set(eq, cp.ezero);  
         

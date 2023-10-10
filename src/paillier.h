@@ -120,6 +120,9 @@ namespace phe {
 			return *this;
 		}
 
+		/*
+		Free the space occupied by lambda, lmdInv
+		*/
 		~PaillierPrivateKey() {
 			mpz_clears(this->lambda, this->lmdInv, NULL);
 		}
@@ -484,6 +487,7 @@ namespace phe {
 		}
 
 		// c=c^lambda mod n^2
+		
 		mpz_powm(m, c, prikey.lambda, prikey.nsquare);
 
 		// (c - 1) / n * lambda^(-1) mod n

@@ -2,12 +2,12 @@
 
 # SOCI
 
-SOCI (secure outsourced computation on integers scheme) provides a twin-server architecture for secure outsourced computation based on Paillier cryptosystem, which supports computations on encrypted integers rather than just natural numbers [1]. It significently improves the computation efficiency compared with fully homomorphic encryption mechanism. SOCI includes a suite of efficient secure computation protocols, including secure multiplication ($\textsf{SMUL}$), secure comparison ($\textsf{SCMP}$), secure sign bit-acquisition ($\textsf{SSBA}$) and secure division ($\textsf{SDIV}$). The protocols realize secure computations on both non-negative integers and negative integers. 
+The Secure Outsourced Computation on Integers (SOCI) scheme employs a twin-server architecture that is based on the Paillier cryptosystem. This framework enables secure outsourced computation involving encrypted integers, as opposed to being limited to natural numbers [1]. Notably, SOCI achieves significant improvements in computational efficiency compared to fully homomorphic encryption mechanisms. Within the SOCI framework, a comprehensive set of efficient secure computation protocols has been developed, encompassing secure multiplication ($\textsf{SMUL}$), secure comparison ($\textsf{SCMP}$), secure sign bit-acquisition ($\textsf{SSBA}$), and secure division ($\textsf{SDIV}$). These protocols have been designed to facilitate secure computations on both non-negative integers and negative integers, providing a versatile and robust solution for secure outsourced computation.
 
 
 # Preliminary
 
-The protocols in SOCI are built based on Pailliar cryptosystem with threshold decryption (PaillierTD), which is a variant of the conventional Paillier cryptosystem. PaillierTD splits the private key of the Paillier cryptosystem into two partially private keys. Any partially private key cannot effectively decrypt a given ciphertext encrypted by the Paillier cryptosystem. PaillierTD consists of the following algorithms.
+The protocols within the SOCI framework are constructed upon the foundation of the Paillier cryptosystem with threshold decryption (PaillierTD). This variant of the conventional Paillier cryptosystem divides the private key into two partially private keys. Importantly, neither of these partially private keys alone possesses the capability to effectively decrypt a ciphertext that has been encrypted using the Paillier cryptosystem. The PaillierTD scheme comprises the following algorithms.
 
 $\textbf{Key Generation} (\textsf{KeyGen})$: Let $p,q$ be two strong prime numbers (i.e., $p=2p'+1$ and $q=2q'+1$, where $p'$ and $q'$ are prime numbers) with $\kappa$ bits (e.g., $\kappa=512$). Compute $N=p\cdot q$, $\lambda=lcm(p-1,q-1)$ and $\mu=\lambda^{-1}\mod N$. Let the generator $g=N+1$, the public key $pk=(g,N)$ and the private key $sk=\lambda$.
 
@@ -31,11 +31,11 @@ PaillierTD has the additive homomorphism and scalar-multipilication homomorphism
 # System Architecture
 ![SOCI system architecture](./resource/SOCI_system_architecture.png)
 
-The system architecture of SOCI is shown in the figure above, which consists of a data owner (DO) and two servers, i.e., a cloud platform (CP) and a computation service provider (CSP).
+The system architecture of SOCI, depicted in the figure above, comprises a data owner (DO) and two servers: a cloud platform (CP) and a computation service provider (CSP).
 
-- DO: DO takes charge of generating and distributing keys to CP and CSP securely. Specifically, DO calls the $\textsf{KeyGen}$ algorithm to generate public/private key pair $(pk,sk)$ for Paillier cryptosystem and then splits $sk$ into two partially private keys $(sk_1, sk_2)$. Next, DO distributes $(pk,sk_1)$ and $(pk, sk_2)$ to CP and CSP, respectively. To protect data privacy, DO encrypts data with $pk$ and outsources encrypted data to CP. Besides, DO outsources computation services over encrypted data to CP and CSP.
-- CP: CP stores and manages the encrypted data sent from DO, and produces the intermediate results and the final results in an encrypted form. In addition, CP can directly execute certain calculations over encrypted data such as homomorphic addition and homomorphic scalarmultiplication. CP interacts with CSP to perform $\textsf{SMUL}$, $\textsf{SCMP}$, $\textsf{SSBA}$, and $\textsf{SDIV}$ over encrypted data.
-- CSP: CSP only provides online computation services and does not store any encrypted data. Specifically, CSP cooperates with CP to perform secure computations (e.g., multiplication, comparison, division) on encrypted data.
+- DO: The DO is responsible for securely generating and distributing keys to both CP and CSP. To achieve this, the DO initiates the $\textsf{KeyGen}$ algorithm to create a public/private key pair, denoted as $(pk, sk)$, for the Paillier cryptosystem. Subsequently, the DO splits the private key $sk$ into two partially private keys, labeled as $(sk_1, sk_2)$. Following this, the DO distributes $(pk, sk_1)$ and $(pk, sk_2)$ to CP and CSP, respectively. To safeguard data privacy, the DO encrypts data using the public key $pk$ and then outsources the encrypted data to CP. Additionally, the DO outsources computation services, performed on the encrypted data, to both CP and CSP.
+- CP: CP is responsible for storing and managing the encrypted data transmitted by the DO. It also generates intermediate results and final results while keeping them in an encrypted form. Furthermore, CP is capable of directly executing specific calculations over encrypted data, such as homomorphic addition and homomorphic scalar multiplication. CP collaborates with CSP to execute secure operations like $\textsf{SMUL}$, $\textsf{SCMP}$, $\textsf{SSBA}$, and $\textsf{SDIV}$ on encrypted data.
+- CSP: CSP exclusively offers online computation services and does not retain any encrypted data. Specifically, CSP works in conjunction with CP to perform secure computations, such as multiplication, comparison, and division, on encrypted data.
 
 
 # SOCI API Description
@@ -161,7 +161,7 @@ make
     ---------------------------
 
 # Performance
-We used different KEY_LEN_BIT to test the performance of each function. The experimental environment is a laptop with CPU 10th Gen Intel(R) Core(TM) i5-10210U, 2 cores @ 2.70GHz and 2 cores @ 2.69 GHz, and 16G memory. The experimental results are as follows:
+We employed varying values of KEY_LEN_BIT to assess the performance of each function. The experiments were conducted on a laptop equipped with a 10th Gen Intel(R) Core(TM) i5-10210U CPU, consisting of 2 cores running at 2.70 GHz and 2 cores running at 2.69 GHz, with 16GB of RAM. The obtained experimental results are detailed below:
 |**Length of key in bit**| **KEY_LEN_BIT**|**256**|**384**|**512**|**640**| **768** | **896** | **1024**|
 | ------ | ------ | ------ | ------ |------ |------ |  ------ |------ |------ |
 | 	PaillierTD Encryption		| 	encrypt	| 	0.31015	| 	0.5553	| 	1.21225	| 	2.1346	| 	3.76635	| 	5.97745	| 	8.01885	| 
@@ -177,7 +177,12 @@ The time unit is ms.
 
 
 # Benchmark
-in src/Main.cpp, you can change the value of KEY_LEN_BIT and SIGMA_LEN_BIT . KEY_LEN_BIT determine the length of the big prime in bits, and  SIGMA_LEN_BIT determine the length of $sk_1$ in bits.
+
+In the Main.cpp source code file, you have the flexibility to modify the values of two important parameters: KEY_LEN_BIT and SIGMA_LEN_BIT.
+
+(1) KEY_LEN_BIT governs the bit-length of the large prime used in the computation.
+
+(2) SIGMA_LEN_BIT dictates the bit-length of the variable denoted as $sk_1$ in the program.
 
 # Reference
 
